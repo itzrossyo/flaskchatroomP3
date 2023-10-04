@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, url_for
 from flask_socketio import join_room, leave_room, send, SocketIO
 import random
 from string import ascii_uppercase
@@ -47,8 +47,14 @@ def home():
 
     session["room"] = room
     session["name"] = name
-    # Return a response or render a template
+    return redirect(url_for("room"))
+
     return render_template("home.html")
+
+
+@app.route("/room")
+def room():
+    return render_template("room.html")
 
 
 if __name__ == '__main__':
